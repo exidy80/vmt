@@ -3,5 +3,6 @@
       "baseUrl": "src"
     },
     "exclude": ["**/external"],
-    "include": ["src"]
+    "include": ["src"],
+    "typeAcquisition": {"include": ["jest"]}
   }

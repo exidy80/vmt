@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Aux, BigModal } from 'Components';
-import { Step1, Step2Course, ParticipantList } from './index';
+import Step1 from './Step1';
+import Step2Course from './Step2Course';
+import ParticipantList from './ParticipantList';
 import createClasses from '../create.css';
 import { createRoom } from '../../../store/actions';
 import AssignmentMatrix from './AssignmentMatrix';
 import COLOR_MAP from '../../../utils/colorMap';
 
-class MakeRooms extends Component {
+export class MakeRooms extends Component {
   constructor(props) {
     super(props);
     const { participants } = this.props;

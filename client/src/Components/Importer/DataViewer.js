@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DataEditorModal from './DataEditorModal';
+import DataEditorModal from './DataEditorModal2';
 import useDataValidator from './DataValidator';
 
 export default function DataViewer(props) {

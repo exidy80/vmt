@@ -57,7 +57,7 @@ export default function DataEditorModal(props) {
   } = props;
   const [tableData, setTableData] = React.useState([]);
   const [allChecked, setAllChecked] = React.useState({});
-  const [keys, setKeys] = React.useState();
+  const [keys, setKeys] = React.useState(data.map(() => Math.random()));
 
   React.useEffect(() => {
     setTableData(data);
@@ -178,7 +178,7 @@ export default function DataEditorModal(props) {
               <tr key={keys[rowIndex]} className={classes.DataRow}>
                 {columnConfig.map((config, colIndex) => (
                   <td
-                    key={{ row: rowIndex, key: config.property }}
+                    key={`${keys[rowIndex]}-${config.property}`}
                     className={[
                       classes.Cell,
                       _isHighlighted(rowIndex, config.property)

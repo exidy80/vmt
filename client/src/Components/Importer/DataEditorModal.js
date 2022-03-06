@@ -3,8 +3,8 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ReactDataSheet from 'react-datasheet';
 import { BigModal as Modal, Button } from 'Components';
-// import 'react-datasheet/lib/react-datasheet.css';
-// import './importModal.css';
+// import classes from 'react-datasheet/lib/react-datasheet.css';
+import classes from './dataEditorModal.css';
 
 /* 
 
@@ -45,7 +45,7 @@ highlights is an array of objects, where each object represents a specific cell
   
 */
 
-export default function ImportModal(props) {
+export default function DataEditorModal(props) {
   const {
     show,
     data,
@@ -181,7 +181,10 @@ export default function ImportModal(props) {
   };
 
   const _sheetRenderer = (givenProps) => (
-    <table style={{ marginBottom: '10px', marginTop: '20px', width: '100%' }}>
+    <table
+      className={classes[givenProps.className]}
+      style={{ marginBottom: '10px', marginTop: '20px', width: '100%' }}
+    >
       <thead>
         <tr>
           {_getHeaders().map((col, index) => (
@@ -216,9 +219,9 @@ export default function ImportModal(props) {
 
   const _rowRenderer = (ps) => {
     return (
-      <tr>
+      <tr className={classes[ps.className]}>
         {ps.children}
-        <td className="action-cell">
+        <td>
           {canDeleteRow && (
             <DeleteButton onClick={() => _handleDelete(ps.row)} />
           )}
@@ -239,10 +242,12 @@ export default function ImportModal(props) {
       selected,
       editing,
       updated,
+      className,
       ...rest
     } = ps;
     return (
       <td
+        className={classes[className]}
         {...rest}
         style={
           _isHighlighted(row, col)
@@ -267,7 +272,8 @@ export default function ImportModal(props) {
 
   return (
     <Modal show={show}>
-      <div
+      <span
+        // className={classes['data-grid-container']}
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -301,7 +307,7 @@ export default function ImportModal(props) {
             Cancel
           </Button>
         </div>
-      </div>
+      </span>
     </Modal>
   );
 }
@@ -372,7 +378,7 @@ const DeleteButton = (props) => {
   );
 };
 
-ImportModal.propTypes = {
+DataEditorModal.propTypes = {
   show: PropTypes.bool.isRequired,
   data: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   columnConfig: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
@@ -390,7 +396,7 @@ ImportModal.propTypes = {
   onDeleteRow: PropTypes.func,
 };
 
-ImportModal.defaultProps = {
+DataEditorModal.defaultProps = {
   highlights: [],
   rowConfig: [],
   onChanged: () => {},

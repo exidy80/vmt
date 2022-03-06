@@ -18,7 +18,8 @@ import {
   removeRoomMember,
 } from 'store/actions';
 import { getAllUsersInStore } from 'store/reducers';
-import Importer from '../../Components/Importer/Importer';
+import Importer from 'Components/Importer/Importer';
+import MemberViewer from 'Components/Importer/MemberViewer';
 import SearchResults from './SearchResults';
 import classes from './members.css';
 
@@ -330,7 +331,14 @@ class Members extends PureComponent {
               icon={<i className="fas fa-user-plus" />}
               rightIcons={
                 resourceType === 'course' ? (
-                  <Importer user={user} onImport={this.handleImport} />
+                  <Fragment>
+                    <MemberViewer
+                      user={user}
+                      onSubmit={this.handleImport}
+                      data={classList ? classList.map((mem) => mem.user) : []}
+                    />
+                    <Importer user={user} onImport={this.handleImport} />
+                  </Fragment>
                 ) : null
               }
             >
@@ -404,7 +412,7 @@ Members.propTypes = {
   notifications: PropTypes.arrayOf(PropTypes.shape({})),
   resourceId: PropTypes.string.isRequired,
   resourceType: PropTypes.string.isRequired,
-  courseMembers: PropTypes.arrayOf({}),
+  courseMembers: PropTypes.arrayOf(PropTypes.shape({})),
   owner: PropTypes.bool.isRequired,
   parentResource: PropTypes.string,
   classList: PropTypes.arrayOf(PropTypes.shape({})),

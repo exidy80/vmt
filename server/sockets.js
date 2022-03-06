@@ -160,6 +160,28 @@ module.exports = function() {
 
     socket.on('disconnecting', (reason) => {
       socketMetricInc('disconnect');
+      // if (!io.disconnectCount) {
+      //   io.disconnectCount = {
+      //     total: 0,
+      //   };
+      // }
+      // io.disconnectCount['total']++;
+      // if (!io.disconnectCount[socket.user_id]) {
+      //   io.disconnectCount[socket.user_id] = 0;
+      // } else {
+      //   io.disconnectCount[socket.user_id]++;
+      // }
+
+      if (reason.trim().toLowerCase() === 'ping timeout') {
+        const disconnectData = {
+          time: Date.now(),
+          reason,
+          socket: socket.id,
+          user: socket.user_id,
+          rooms: socket.rooms,
+        };
+        recordEventProblem(disconnectData);
+      }
       console.log(
         'socket disconnect from user: ',
         socket.user_id,

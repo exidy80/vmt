@@ -33,6 +33,9 @@ export default function Importer(props) {
 
   const handleOnCancel = () => setShowModal(false);
 
+  // The sponsors parameter is an object: keys are each username being imported, values
+  // are the _id of the sponsor (if any). Note that the data parameter contains
+  // just the username of the sponsor, if any.
   const createAndInviteMembers = async ({ data, sponsors }) => {
     const { user: creator, onImport } = props;
     const userObjects = await Promise.all(

@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { validateExistingField } from 'utils/validators';
 import { Button } from 'Components';
+import { API } from 'utils';
 import DataViewer from './DataViewer';
 
 export default function MemberViewer(props) {
@@ -13,23 +14,23 @@ export default function MemberViewer(props) {
   React.useEffect(() => {
     (async () => {
       const userObjects = await Promise.all(
-        data.map(async (user) => {
-          const existingUser = await validateExistingField(
-            'username',
-            user.username
-          );
-          const sponsor = await validateExistingField('_id', user.sponsor);
-          const sponsorName = (sponsor && sponsor.username) || '';
+        data
+          .map(async (user) => {
+            const result = await API.getById('user', user._id);
+            const existingUser = result.data.result;
 
-          return !existingUser
-            ? null
-            : {
-                ...existingUser,
-                organization: existingUser.organization,
-                identifier: existingUser.identifier,
-                sponsor: sponsorName,
-              };
-        })
+            return !existingUser
+              ? null
+              : {
+                  ...existingUser,
+                  organization: existingUser.organization,
+                  identifier: existingUser.identifier,
+                  sponsor: existingUser.sponsor
+                    ? existingUser.sponsor.username
+                    : '',
+                };
+          })
+          .filter((user) => user !== null)
       );
       setUserData(userObjects);
     })();

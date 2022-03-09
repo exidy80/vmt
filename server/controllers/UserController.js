@@ -53,6 +53,7 @@ module.exports = {
           populate: { path: 'tabs' },
         })
         .populate({ path: 'notifications', populate: { path: 'fromUser' } })
+        .populate({ path: 'sponsor', select: 'username' })
         .then((user) => resolve(user))
         .catch((err) => reject(err));
     });

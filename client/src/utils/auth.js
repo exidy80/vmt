@@ -18,6 +18,11 @@ export default {
   googleLogin: (username, password) => {
     return axios.get('/auth/googleAuth', { username, password });
   },
+
+  google: () => {
+    return axios.get('/auth/google');
+  },
+
   logout: (userId) => {
     return axios.post(`/auth/logout/${userId}`);
   },

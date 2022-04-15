@@ -147,3 +147,12 @@ module.exports.reinstateUser = (userId, reqUser) => {
 module.exports.revokeRefreshToken = (encodedToken, reqUser) => {
   return this.post(`/auth/revokedToken`, { encodedToken }, reqUser);
 };
+
+module.exports.oauthGoogle = (redirectURL) => {
+  console.log(
+    `${BASE_URL}/oauth/google?redirectURL=${redirectURL}/oauth/return`
+  );
+  return axios.get(
+    `${BASE_URL}/oauth/google?redirectURL=${redirectURL}/oauth/return`
+  );
+};

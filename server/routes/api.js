@@ -42,7 +42,7 @@ router.post('/:resource/code', (req, res) => {
   }
   const controller = controllers[resource];
 
-  controller
+  return controller
     .getByCode(code)
     .then((result) => res.json({ result }))
     .catch((err) => {

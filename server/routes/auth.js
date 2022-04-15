@@ -9,8 +9,6 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { isNil, isEqual } = require('lodash');
-const controllers = require('../controllers');
-// const Course = require('../models/Course');
 const User = require('../models/User');
 const errors = require('../middleware/errors');
 const {
@@ -377,6 +375,17 @@ router.put('/sso/user/:id', async (req, res) => {
       { new: true }
     );
     return res.json(vmtUser);
+  } catch (err) {
+    return errors.handleError(err, res);
+  }
+});
+
+router.get('/google', async (req, res) => {
+  try {
+    const results = await ssoService.oauthGoogle(
+      `${req.headers['x-forwarded-proto']}://${req.headers['x-forwarded-host']}`
+    );
+    return res.json(results);
   } catch (err) {
     return errors.handleError(err, res);
   }

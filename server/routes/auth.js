@@ -90,7 +90,7 @@ const login = async (req, res) => {
     const data = vmtUser;
     return res.json(data);
   } catch (err) {
-    return errors.sendError.InternalError(null, res);
+    return errors.sendError.InternalError('Cannot Login', res);
   }
 };
 
@@ -155,7 +155,7 @@ const signup = async (req, res) => {
     return res.json(user);
   } catch (err) {
     console.log('err signup', err);
-    return errors.sendError.InternalError(null, res);
+    return errors.sendError.InternalError('Error in signup', res);
   }
 };
 
@@ -382,10 +382,11 @@ router.put('/sso/user/:id', async (req, res) => {
 
 router.get('/google', async (req, res) => {
   try {
-    const results = await ssoService.oauthGoogle(
-      `${req.headers['x-forwarded-proto']}://${req.headers['x-forwarded-host']}`
-    );
-    return res.json(results);
+    // return res.redirect(
+    //   `http://localhost:3003/oauth/google?redirectURL=${req.query.redirectURL}`
+    // );
+    const results = await ssoService.oauthGoogle(req.query.redirectURL);
+    return res.send(results);
   } catch (err) {
     return errors.handleError(err, res);
   }

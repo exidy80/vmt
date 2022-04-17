@@ -19,8 +19,8 @@ export default {
     return axios.get('/auth/googleAuth', { username, password });
   },
 
-  google: () => {
-    return axios.get('/auth/google');
+  google: (redirectURL) => {
+    return axios.get(`/auth/google?redirectURL=${redirectURL}`);
   },
 
   logout: (userId) => {

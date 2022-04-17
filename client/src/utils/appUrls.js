@@ -36,5 +36,5 @@ export const getGoogleUrl = () => {
   const redirectUrl = getRedirectUrl();
   // const endpoint = 'oauth/google';
   // return `${base}/${endpoint}?redirectURL=${redirectUrl}/oauth/return`;
-  return `${redirectUrl}/auth/google`;
+  return `${redirectUrl}/oauth/return`;
 };

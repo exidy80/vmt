@@ -49,7 +49,7 @@ const validateUser = (req, res, next) => {
         return next();
       })
       .catch(() => {
-        errors.sendError.InternalError(null, res);
+        errors.sendError.InternalError('Did not validate user', res);
       });
   }
 
@@ -79,7 +79,7 @@ const validateRecordAccess = (req, res, next) => {
         })
         .catch((err) => {
           console.error(`Error canModifyResource: ${err}`);
-          return errors.sendError.InternalError(null, res);
+          return errors.sendError.InternalError('Cannot modify resource', res);
         });
     }
 
@@ -124,7 +124,7 @@ const validateRecordAccess = (req, res, next) => {
       })
       .catch((err) => {
         console.error(`Error canModifyResource: ${err}`);
-        return errors.sendError.InternalError(null, res);
+        return errors.sendError.InternalError('Cannot modify resource', res);
       })
   );
 };

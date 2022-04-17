@@ -76,7 +76,7 @@ router.get('/search', (req, res) => {
       'act: ',
       activityCriteria
     );
-    return errors.sendError.InternalError(null, res);
+    return errors.sendError.InternalError('Enc search criteria error', res);
   }
 
   const rooms = db.Room.find(roomCriteria, {

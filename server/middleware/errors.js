@@ -57,10 +57,10 @@ module.exports.handleError = (err, res) => {
     message = 'Invalid or expired credentials';
   } else if (isAxiosError) {
     status = err.response.status || 500;
-    message = err.response.data || 'Internal Error';
+    message = err.response.data || 'Internal Error from Axios';
   } else {
     status = 500;
-    message = 'Internal Error';
+    message = err.response.data || 'Other Internal Error';
   }
 
   return res.status(status).json({

@@ -149,10 +149,5 @@ module.exports.revokeRefreshToken = (encodedToken, reqUser) => {
 };
 
 module.exports.oauthGoogle = (redirectURL) => {
-  console.log(
-    `${BASE_URL}/oauth/google?redirectURL=${redirectURL}/oauth/return`
-  );
-  return axios.get(
-    `${BASE_URL}/oauth/google?redirectURL=${redirectURL}/oauth/return`
-  );
+  return this.get(`/oauth/google?redirectURL=${redirectURL}`);
 };

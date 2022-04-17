@@ -17,7 +17,10 @@ router.get('/', (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      return errors.sendError.InternalError(null, res);
+      return errors.sendError.InternalError(
+        'Error getting Desmos Activity',
+        res
+      );
     });
 });
 

@@ -24,7 +24,6 @@
     "cypress": "./node_modules/.bin/cypress open",
     "cypress:pc": ".\\node_modules\\.bin\\cypress open",
     "cypress:run": "cypress run --browser electron",
-    "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}",
     "heroku-postbuild": "cd ../client && npm install && npm run build",
     "seed": "node cypress/seedDb",
     "seed-sso": "cd ../../mt-sso && npm run test",
@@ -43,24 +42,20 @@
   },
   "dependencies": {
     "axios": ">=0.21.2",
-    "bluebird": "^3.5.1",
     "body-parser": "~1.18.2",
-    "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "dotenv": "^6.0.0",
-    "emotion": "^9.2.10",
     "express": "^4.16.4",
     "express-handlebars": "^5.3.1",
     "express-prom-bundle": "^6.4.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
-    "moment": "^2.29.2",
+    "moment": "^2.24.0",
     "mongoose": "^5.12.6",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "prom-client": "^13.2.0",
-    "serve-favicon": "~2.4.5",
     "socket.io": "^4.3.1",
     "xml2js": "^0.4.19"
   },
@@ -75,7 +70,6 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-prettier": "^3.1.0",
     "nodemon": "^1.18.10",
-    "onchange": "^5.2.0",
     "prettier": "^1.16.3"
   }
 }

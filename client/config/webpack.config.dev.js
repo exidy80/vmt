@@ -4,7 +4,7 @@ const autoprefixer = require('autoprefixer');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
@@ -131,36 +131,35 @@ module.exports = {
       //   include: [paths.appSrc],
       //   exclude: [paths.appExtModules],
       // },
+      // "oneOf" will traverse all following loaders until one will
+      // match the requirements. When no loader matches it will fall
+      // back to the "file" loader at the end of the loader list.
+
       {
-        // "oneOf" will traverse all following loaders until one will
-        // match the requirements. When no loader matches it will fall
-        // back to the "file" loader at the end of the loader list.
-        
-        {
         test: /\.js$/,
         exclude: /node_modules/,
         use: ['babel-loader'],
       },
-            // Images
+      // Images
       {
         test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
         type: 'asset/resource',
       },
-            // Fonts and SVGs
+      // Fonts and SVGs
       {
         test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
         type: 'asset/inline',
       },
-            // CSS, PostCSS, and Sass
+      // CSS, PostCSS, and Sass
       {
         test: /\.(scss|css)$/,
         use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
-      ],
+    ],
   },
   plugins: [
     new CleanWebpackPlugin(),
-        // Only update what has changed on hot reload
+    // Only update what has changed on hot reload
     new webpack.HotModuleReplacementPlugin(),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:

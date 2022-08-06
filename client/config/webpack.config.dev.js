@@ -72,7 +72,7 @@ module.exports = {
     // There are also additional JS chunk files if you use code splitting.
     chunkFilename: 'static/js/[name].chunk.js',
     // This is the URL that app is served from. We use "/" in development.
-    publicPath: publicPath,
+    publicPath,
     // Point sourcemap entries to original disk location (format as URL on Windows)
     devtoolModuleFilenameTemplate: (info) =>
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
@@ -110,31 +110,6 @@ module.exports = {
   module: {
     strictExportPresence: true,
     rules: [
-      // TODO: Disable require.ensure as it's not a standard language feature.
-      // We are waiting for https://github.com/facebookincubator/create-react-app/issues/2176.
-      // { parser: { requireEnsure: false } },
-
-      // First, run the linter.
-      // It's important to do this before Babel processes the JS.
-      // {
-      //   test: /\.(js|jsx|mjs)$/,
-      //   enforce: 'pre',
-      //   use: [
-      //     {
-      //       options: {
-      //         formatter: eslintFormatter,
-      //         eslintPath: require.resolve('eslint'),
-      //       },
-      //       loader: require.resolve('eslint-loader'),
-      //     },
-      //   ],
-      //   include: [paths.appSrc],
-      //   exclude: [paths.appExtModules],
-      // },
-      // "oneOf" will traverse all following loaders until one will
-      // match the requirements. When no loader matches it will fall
-      // back to the "file" loader at the end of the loader list.
-
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -153,7 +128,31 @@ module.exports = {
       // CSS, PostCSS, and Sass
       {
         test: /\.(scss|css)$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader'],
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: true,
+              localIdentName: '[name]__[local]__[hash:base64:5]',
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              // Necessary for external CSS imports to work
+              // https://github.com/facebookincubator/create-react-app/issues/2677
+              ident: 'postcss',
+              plugins: [
+                'postcss-flexbugs-fixes',
+                autoprefixer({
+                  flexbox: 'no-2009',
+                }),
+              ],
+            },
+          },
+        ],
       },
     ],
   },
